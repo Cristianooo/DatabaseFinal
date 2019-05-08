@@ -1,0 +1,87 @@
+body {
+    background-image: url(../pics/pawel-czerwinski-1424180-unsplash.jpg);
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.table-wrapper {
+    width:80%;
+    margin:auto;
+    padding-top:50px;
+}
+
+.player-img {
+    width: 40px;
+    height: 40px;
+}
+
+.add-player-form {
+    margin:auto;
+    width:50%;
+}
+.topRow{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap 
+}
+.card-title{
+    flex-basis: 80%;
+}
+.ranking{
+    flex-basis:10%;
+    align-self: center;
+    text-align: right;
+}
+.upvotes{
+    flex-basis:10%;
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+.headerFoot{
+    width:80%;
+    margin:auto;
+    height:30px;
+    background-color:rgba(255,255,255,0.8);
+}
+
+.footer{
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+    background-color: lightgrey;
+    bottom:0;
+    width:100vw;
+    margin-top:50px;
+}
+.upvote{
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+.downvote{
+    background:none;
+    border:none;
+    cursor:pointer;
+}
+
+.profileBlock{
+    margin-top:40px;
+    height:100%;
+    width:100%;
+    background-color: rgba(255,255,255,0.8);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+    transition: 0.3s;
+    display:flex;
+    flex-direction:column;
+    justify-content: center;
+}
+.profileBlock:hover {
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  }
+  .circleProf{
+      border-radius: 50%;
+  }

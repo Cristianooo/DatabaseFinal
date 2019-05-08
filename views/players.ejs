@@ -1,0 +1,27 @@
+<% include partials/header.ejs %>
+<div class ="headerFoot"><a class="float-right" style="margin-right: 20px;" href="/add" title="Add a New Player">Add a Question</a></div>
+    <div class="table-wrapper">
+        <% if (questions.length > 0) {%>
+             <% questions.forEach((question, index) => { %>
+                <div class="card" style="width: 80%; margin:auto;" >
+                        <div class="card-body">
+                            <div class="topRow">
+                                <h5 class="card-title"><%= question.Question%></h5>
+                                <h6 class="ranking"><%=question.Ranking%></h6>
+                                <div class="upvotes" id="<%=question.QuestionID%>">
+                                    <button class="upvote" type="button" onclick="upvote(this)" ><i class="fas fa-chevron-up"></i></button>
+                                    <button class="downvote" type="button" onclick="downvote(this)" ><i class="fas fa-chevron-down"></i></button>
+                                </div>
+                                
+                            </div>
+                          
+                          <h6 class="card-subtitle mb-2 text-muted"><%= question.category%></h6>
+                        </div>
+                </div>
+            <% }) %>
+            
+        <% } else { %>
+            <p class="text-center">No Questions found. Go <a href="/add" >here</a> to add a question.</p>
+        <% } %>
+    </div>
+<% include partials/footer.ejs %>

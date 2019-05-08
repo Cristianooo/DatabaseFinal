@@ -1,0 +1,28 @@
+<% include partials/header.ejs %>
+    <div class="container" style="height:80vh;">
+        <div class="profileBlock">
+                <div class="list-group" style="width:80%; margin:auto;">
+                    <% if (questions.length > 0) {%>
+                        <% questions.forEach((question, index) => { %>
+                            <div class="card" style="width: 80%; margin:auto;" >
+                                    <div class="card-body">
+                                        <div class="topRow">
+                                            <h5 class="card-title"><%= question.Question%></h5>
+                                            <h6 class="ranking"><%=question.Ranking%></h6>
+                                            
+                                        </div>
+                                        
+                                        <h6 class="card-subtitle mb-2 text-muted"><%= question.category%></h6>
+                                    </div>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p class="text-center">No Questions found. Go <a href="/add" >here</a> to add a question.</p>
+                    <% } %>
+                        
+                </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

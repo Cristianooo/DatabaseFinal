@@ -1,0 +1,30 @@
+<% include partials/header.ejs %>
+    <div class="container">
+        <% if (message != '') { %>
+            <p class="text-center text-danger"><%= message %></p>
+        <% } %>
+        <form class="add-player-form" action="" method="post">
+            <div class="form-row">
+                    <div class="md-form mb-4 pink-textarea active-pink-textarea">
+                            <i class="fas fa-angle-double-right prefix"></i>
+                            <textarea id="question" name="question" id="form21" class="md-textarea form-control" rows="3" placeholder="Add a question"></textarea>                    </div>
+                
+            </div>
+            <div class="form-row">
+                <div class="form-group col-md-4">
+                    <select id="category" name="category" class="form-control" required>
+                        <option selected disabled>Choose category</option>
+                        <option>Conversation starter</option>
+                        <option>Funny</option>
+                        <option>Serious</option>
+                        <option>Random</option>
+                    </select>
+                </div>
+                
+            </div>
+            <button type="submit" class="btn btn-primary float-right">Add Question</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
