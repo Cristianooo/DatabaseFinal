@@ -9,12 +9,13 @@ const userDB = require("./models");
 
 const app = express();
 
-const {getLoginPage, login} = require('./routes/index');    
-const {players, playersPage, upvoteQues, downvoteQues, ranking, addPlayerPage, addPlayer, deletePlayer, editPlayer, editPlayerPage} = require('./routes/player');
-const {profilePage, myQuestionsPage} = require('./routes/profile');
+const {getLoginPage, login, getSignUpPage} = require('./routes/index');    
+const {questionsPage, upvoteQues, downvoteQues, ranking, addQuestionPage, addQuestion, deleteQuestion, editQuestion, editQuestionPage, addResponsePage, addResponse} = require('./routes/question');
+const {profilePage, myQuestionsPage,editQuesPage,editQues, deleteQues, upVotedQuestionsPage, myResponsePage} = require('./routes/profile');
 const port = 5000;
 
-require("./routes/api-routes.js")(app);
+const {APIlogin, signup, logout, getUserData} = require("./routes/api-routes.js"); 
+
 
 // create connection to database
 // the mysql.createConnection function takes in a configuration object which contains host, user, password and the database name.
@@ -51,22 +52,35 @@ app.use(passport.session());
 
 
 
-app.get('/players', playersPage);
-app.get('/add', addPlayerPage);
-app.get('/edit/:id', editPlayerPage);
-app.get('/delete/:id', deletePlayer);
+app.get('/questions', questionsPage);
+app.get('/add', addQuestionPage);
+app.get('/edit/:id', editQuestionPage);
+app.get('/delete/:id', deleteQuestion);
 app.get('/ranking', ranking);
+app.get('/addResponse/:id', addResponsePage);
+app.post('/addResponse/:id', addResponse);
 app.post('/upvote', upvoteQues);
 app.post('/downvote', downvoteQues);
-app.post('/add', addPlayer);
-app.post('/edit/:id', editPlayer);
+app.post('/add', addQuestion);
+app.post('/edit/:id', editQuestion);
 
 app.get('/', getLoginPage);
+app.get('/signup', getSignUpPage);
 app.post('/', login);
 
 
+app.post('/APIlogin', passport.authenticate("local"), APIlogin);
+app.post('/signup', signup);
+app.get('/logout', logout);
+app.get('/UserData', getUserData);
+
 app.get('/profile', profilePage);
 app.get('/myQuestions', myQuestionsPage);
+app.get('/editQues/:id', editQuesPage);
+app.post('/editQues/:id', editQues);
+app.get('/deleteQues/:id', deleteQues);
+app.get('/myUpvotes', upVotedQuestionsPage);
+app.get('/myResponses', myResponsePage)
 
 
 userDB.sequelize.sync().then(function() {

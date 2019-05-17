@@ -1,22 +1,5 @@
 
 
-
-  /*window.onload=function(){
-  const upvoteBtn = document.getElementById('upvote');
-  const downvoteBtn = document.getElementById('downvote');
-
-  parentID = upvoteBtn.parentNode.id;
-
-
-  upvoteBtn.addEventListener('click', function(e) {
-    console.log('Upvote button was clicked' + parentID);
-  });
-
-  downvoteBtn.addEventListener('click', function(e) {
-      console.log('Downvote button was clicked' + parentID);
-    });
-}*/
-
 function upvote(elem) {
   var parentID = elem.parentNode.id;
   console.log('Upvote button was clicked' + parentID);
@@ -61,6 +44,24 @@ function downvote(elem){
   .catch(function(error) {
     console.log(error);
   });
+}
+
+function show2ndResponse(){
+  const secondResponse = document.getElementById('2ndResponse');
+  const firstButton = document.getElementById('firstBtn');
+  const secondButton = document.getElementById('secondBtn');
+
+  secondResponse.style.display = "block";
+  firstButton.style.display = "none";
+  secondButton.style.display = "block";
+}
+
+function show3rdResponse(){
+  const thirdResponse = document.getElementById('3rdResponse');
+  const secondButton = document.getElementById('secondBtn');
+
+  thirdResponse.style.display = "block";
+  secondButton.style.display = "none";
 }
 
 setInterval(function() {

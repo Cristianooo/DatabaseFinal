@@ -9,12 +9,31 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css" integrity="sha384-lZN37f5QGtY3VHgisS14W3ExzMWZxybE1SJSEsQp9S+oqd12jhcu+A56Ebc1zFSJ" crossorigin="anonymous">
     <link href="/assets/css/mainStyles.css" rel="stylesheet" type="text/css">
     <script src="/scripts/questions.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <script>
+        $(function() {
+            $('#profileIcon').hover(function() {
+                $('#dropdown').css('display', 'block');
+            }
+            );
+            $('#mainTable').hover(function() {
+                $('#dropdown').css('display', 'none');
+            }
+            );
+
+        });
+        
+    </script>
     <title><%= title %></title>
 </head>
 
 <body>
 <div class="page-wrapper">
     <nav class="navbar navbar-light bg-light">
-        <span class="navbar-brand mb-0 h1" ><a href="/players">JustAsk!</a></span>
-        <a href="/profile"><i class="far fa-user fa-2x"></i></a>
+        <span class="navbar-brand mb-0 h1" ><a href="/questions">JustAsk!</a></span>
+        <div id="profileIcon"><i class="far fa-user fa-2x"></i></div>
     </nav>
+    <div id="dropdown" class="dropdown">
+        <a href="/profile">My profile</a>
+        <a href="/logout">Logout</a>
+    </div>

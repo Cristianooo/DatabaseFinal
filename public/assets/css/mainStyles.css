@@ -16,15 +16,41 @@ body {
     width: 40px;
     height: 40px;
 }
-
-.add-player-form {
+/*Questions page stuff*/
+.add-question-form {
     margin:auto;
-    width:50%;
+    width:60%;
+    height: 80%;
+    margin-top:30px;
+    background-color:rgba(255,255,255,0.8);
+    border-radius: 25px;
+}
+.add-question-container{
+    
+    width:90%;
+    height:90%;
+    margin:auto;
+}
+.responseColumn{
+    display:flex;
+    flex-direction:column;
+    align-items: flex-start;
+}
+.extraResponse{
+    display:none;
+    margin-bottom:20px;
+}
+.anotherResponseBtn{
+    margin-top:20px;
+    margin-bottom:20px;
 }
 .topRow{
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap 
+}
+.list-group{
+    overflow-y:auto;
 }
 .card-title{
     flex-basis: 80%;
@@ -41,13 +67,16 @@ body {
     align-items: center;
     justify-content: space-between;
 }
+.card-response{
+    color:#66d1ff;
+    margin-left: 40px;
+}
 .headerFoot{
     width:80%;
     margin:auto;
     height:30px;
     background-color:rgba(255,255,255,0.8);
 }
-
 .footer{
     display:flex;
     flex-direction: column;
@@ -56,6 +85,7 @@ body {
     bottom:0;
     width:100vw;
     margin-top:50px;
+    position: absolute;
 }
 .upvote{
     background:none;
@@ -67,7 +97,12 @@ body {
     border:none;
     cursor:pointer;
 }
+.category{
+    font-style:italic;
+    color:grey;
+}
 
+/*Profile stuff*/
 .profileBlock{
     margin-top:40px;
     height:100%;
@@ -82,6 +117,47 @@ body {
 .profileBlock:hover {
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
   }
-  .circleProf{
+.circleProf{
       border-radius: 50%;
   }
+.buttonTitles{
+    text-align: center;
+    color: black;
+    font-weight:bold;
+    margin-top:20px;
+}
+.editDeleteBtns{
+    flex-basis:10%;
+    display:flex;
+    justify-content: space-between;
+    height:40px;
+}
+
+/*Dropdown Stuff */
+#profileIcon{
+    color: #4289ff;
+    cursor: pointer;
+}
+#profileIcon:hover {
+    color: #6ba3ff;
+}
+#profileIcon:hover .dropdown {
+    display: block;
+  }
+.dropdown {
+    display:none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    right:0;
+  }
+.dropdown a {
+    color: #3fd5ff;
+    padding: 12px 14px;
+    text-decoration: none;
+    display: block;
+  }
+.dropdown a:hover {background-color: #f1f1f1}
+  

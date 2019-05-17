@@ -1,0 +1,35 @@
+<% include partials/header.ejs %>
+<div class="container">
+    <% if (question) { %>
+        <form class="add-question-form" action="" method="post">
+            <div class="add-question-container">
+                
+            
+                    <div class="form-row">
+                        <div class="md-form mb-4 pink-textarea active-pink-textarea">
+                            <i class="fas fa-angle-double-right prefix"></i>
+                            <textarea id="question" name="question" class="md-textarea form-control" rows="3" ><%=question.Question%></textarea>                    
+                    </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-4">
+                            <select id="category" name="category" class="form-control" required>
+                                <option selected ><%=question.Category%></option>
+                                <option>Conversation starter</option>
+                                <option>Funny</option>
+                                <option>Serious</option>
+                                <option>Random</option>
+                            </select>
+                        </div>
+                        
+                    </div>
+                    <button type="submit" class="btn btn-primary float-right">Update Question</button>
+            </div>
+        </form>
+    <% } else { %>
+        <p class="text-center">Question Not Found. </p>
+    <% } %>
+</div>
+</div>
+</body>
+</html>

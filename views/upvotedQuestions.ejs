@@ -1,24 +1,25 @@
 <% include partials/header.ejs %>
     <div class="container" style="height:80vh;">
         <div class="profileBlock">
-                <h1 class = "buttonTitles">Responses</h1>
+                <h1 class = "buttonTitles">Upvoted Questions</h1>
                 <div class="list-group" style="width:80%; margin:auto;">
-                   
                     <% if (questions.length > 0) {%>
-                        <%let lastID = 0;%>
                         <% questions.forEach((question, index) => { %>
                             <div class="card" style="width: 80%; margin:auto;" >
                                     <div class="card-body">
-                                        <%if (question.QuestionID != lastID){%>
+                                        <div class="topRow">
                                             <h5 class="card-title"><%= question.Question%></h5>
-                                        <%}%>
+                                            <h6 class="ranking"><%=question.Ranking%></h6>
+                                            
+                                            
+                                        </div>
+                                        
+                                        <h6 class="card-subtitle mb-2 text-muted"><%= question.category%></h6>
                                     </div>
-                                    <h6 class ="card-response" ><%= question.ResponseData%></h6>
                             </div>
-                            <% lastID= question.QuestionID%>
                         <% }) %>
                     <% } else { %>
-                        <p class="text-center">No Responses found.</p>
+                        <p class="text-center">No Questions found. Go <a href="/add" >here</a> to add a question.</p>
                     <% } %>
                         
                 </div>

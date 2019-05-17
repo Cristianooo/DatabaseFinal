@@ -1,0 +1,41 @@
+<% include partials/header.ejs %>
+    <div class="container">
+
+        <% if (questions.length > 0) {%>
+            <% questions.forEach((question, index) => { %>
+                <form class="add-question-form" action="" method="post">
+                    <div class="add-question-container">
+                            <div class="responseColumn">
+                                    <h6><%= question.Question %></h6>
+                                    <div class="form-row">
+                                            <div class="md-form mb-4 pink-textarea active-pink-textarea">
+                                                    <i class="fas fa-angle-double-right prefix"></i>
+                                                    <textarea name="response1" class="md-textarea form-control" rows="3" placeholder="Add your response"></textarea>                    
+                                            </div>
+                                        
+                                    </div>
+                                    <button type="button" onclick="show2ndResponse()" class="anotherResponseBtn" id="firstBtn">Add another response</button>
+                                    <div class="extraResponse" id="2ndResponse">
+                                            <i class="fas fa-angle-double-right prefix"></i>
+                                            <textarea id="question" name="response2" class="md-textarea form-control" rows="3" placeholder="Add your response"></textarea>                    
+                                    </div>
+                                    <button type="button" onclick="show3rdResponse()" class="anotherResponseBtn" id="secondBtn" style="display:none">Add another response</button>
+                                    <div class="extraResponse" id="3rdResponse">
+                                            <i class="fas fa-angle-double-right prefix"></i>
+                                            <textarea name="response3" class="md-textarea form-control" rows="3" placeholder="Add your response"></textarea>                    
+                                    </div>
+                                   
+                            </div>
+                            <input type="hidden" name="questionID" value="<%= question.QuestionID %>" /> 
+                            <button type="submit" class="btn btn-primary float-right">Add Response</button>
+                    </div> 
+                    </form>
+           <% }) %>
+           
+       <% } else { %>
+           <p class="text-center">An error occured. </p>
+       <% } %>
+    </div>
+</div>
+</body>
+</html>

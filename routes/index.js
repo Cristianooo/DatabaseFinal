@@ -3,11 +3,11 @@ var path = require("path");
 //
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
-//
+
 module.exports =  {
     getLoginPage: (req, res) => {
         if(req.user){
-            res.redirect("/players");
+            res.redirect("/questions");
         }
         else{
             res.render('index.ejs', {
@@ -17,11 +17,9 @@ module.exports =  {
         }
     },
     login: (req, res) => {
-
         let message = '';
         let username = req.body.username;
         let password = req.body.password;
-        console.log(req.body.username + ' ' + req.body.password);
 
         let userQuery = "SELECT * FROM `Users` WHERE Username = '" + username + "' AND Password = '" + password+ "'" ;
 
@@ -36,9 +34,14 @@ module.exports =  {
                     title: "JustAsk!"
                 });
             } else {
-                res.redirect('/players');
+                res.redirect('/questions');
 
             }
         });
+    },
+    getSignUpPage: (req, res)=> {
+        res.render('signUp.ejs', {
+            title: "Sign Up!",
+        })
     }
 };

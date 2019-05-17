@@ -1,14 +1,19 @@
 <% include partials/header.ejs %>
     <div class="container" style="height:80vh;">
         <div class="profileBlock">
+                <h1 class = "buttonTitles">My Questions</h1>
                 <div class="list-group" style="width:80%; margin:auto;">
                     <% if (questions.length > 0) {%>
                         <% questions.forEach((question, index) => { %>
-                            <div class="card" style="width: 80%; margin:auto;" >
+                            <div class="card" style="width: 90%; margin:auto;" >
                                     <div class="card-body">
                                         <div class="topRow">
                                             <h5 class="card-title"><%= question.Question%></h5>
-                                            <h6 class="ranking"><%=question.Ranking%></h6>
+                                            <h6 class="ranking" style="text-align: center"><%=question.Ranking%></h6>
+                                            <div class="editDeleteBtns">
+                                                <a href="/editQues/<%= question.QuestionID%>" class="btn btn-sm btn-success">Edit</a>
+                                                <a href="/deleteQues/<%= question.QuestionID%>" class="btn btn-sm btn-danger">Delete</a>
+                                            </div>
                                             
                                         </div>
                                         
