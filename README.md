@@ -11,7 +11,8 @@ You must then change the code found in app.js that states the connection to the 
     user: 'root',
     password: '',
     database: 'JustAsk'
-});```
+});
+```
 
 Once you have done this and have a NodeJS environemnt ready to go, you can refer to the package.json to see any packages you will need for the project.
 
