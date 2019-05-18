@@ -1,3 +1,5 @@
+const fs = require('fs');
+
 module.exports = {
     profilePage: (req, res) => {
         res.render('profile.ejs', {
@@ -7,7 +9,7 @@ module.exports = {
 
     },
     myQuestionsPage: (req, res) => {
-        let questionQuery = "SELECT * FROM `Questions` WHERE UID = '"+ 4 + "' AND Deleted = 0"; 
+        let questionQuery = "SELECT * FROM `Questions` WHERE UID = '"+ 1 + "' AND Deleted = 0"; 
 
         db.query(questionQuery, (err, result) => {
             if (err) {
@@ -63,8 +65,48 @@ module.exports = {
         });
     }, 
     upVotedQuestionsPage: (req, res) => {
-        let upvotedQuery = "SELECT Questions.Question, Questions.Ranking FROM Questions INNER JOIN LikedQuestions ON Questions.QuestionID = LikedQuestions.QuestionID WHERE LikedQuestions.UID = 4 and Questions.Deleted = 0";
+        let upvotedQuery = "SELECT * FROM MyLikedQuestions WHERE UID = 1 and Deleted = 0";
         db.query(upvotedQuery, (err, result) => {
+            if (err) {
+                console.log('Query error');
+                res.redirect('/profile');
+            }
+            
+            res.render('upvotedQuestions.ejs', {
+                title: "JustAsk!",   
+                questions: result,
+            });
+        });
+        let nameAndUpvoteQuery = "SELECT a.FirstName, a.LastName, c.Question FROM Users as a INNER JOIN LikedQuestions as b on a.id = b.UID INNER JOIN Questions as c on b.QuestionID = c.QuestionID WHERE a.id = 1 and c.Deleted = 0;"; 
+
+        db.query(nameAndUpvoteQuery, (err, result, fields) => {
+            if (err) {
+                console.log('Query error');
+                res.redirect('/');
+            }
+            var reportFile = "NameAndUpvotes";
+                fs.closeSync(fs.openSync(__dirname + '/../public/reports/' + reportFile + '.csv', 'w'));
+                var attributes = [];
+                var row = [];
+                for(var x = 0; x<fields.length; x++) attributes.push(fields[x].name);
+                fs.appendFile(__dirname + '/../public/reports/' + reportFile + '.csv', attributes.join(','), function (err) {
+                    if(err) console.log('Error appending fields', err);
+                    fs.appendFileSync(__dirname + '/../public/reports/' + reportFile + '.csv', '\n');
+                    for(var x = 0; x<result.length; x++) {
+                        row = [];
+                        for(var y = 0; y<attributes.length; y++){
+                            row.push(result[x][attributes[y]]);
+                        }
+                        fs.appendFileSync(__dirname + '/../public/reports/' + reportFile + '.csv', row.join(','));
+                        fs.appendFileSync(__dirname + '/../public/reports/' + reportFile + '.csv', '\n');
+                    }
+                    
+                });
+        });
+    },
+    downVotedQuestionsPage: (req, res) => {
+        let downvotedQuery = "SELECT * FROM MyDislikedQuestions WHERE UID = 1 and Deleted = 0";
+        db.query(downvotedQuery, (err, result) => {
             if (err) {
                 console.log('Query error');
                 res.redirect('/profile');
@@ -76,7 +118,7 @@ module.exports = {
         });
     },
     myResponsePage: (req, res) => {
-        let respondedQuery = "SELECT * FROM Questions as a INNER JOIN UserResponses as b on a.QuestionID = b.QuestionID INNER JOIN Responses as c on b.ResponseID = c.ResponseID GROUP BY a.QuestionID, b.UID, b.ResponseID HAVING a.UID = 4;"
+        let respondedQuery = "SELECT * FROM Questions as a INNER JOIN UserResponses as b on a.QuestionID = b.QuestionID INNER JOIN Responses as c on b.ResponseID = c.ResponseID GROUP BY a.QuestionID, b.UID, b.ResponseID HAVING a.UID = 1;"
         db.query(respondedQuery, (err, result) => {
             if (err) {
                 console.log('Query error');

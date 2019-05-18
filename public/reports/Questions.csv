@@ -1,5 +1,5 @@
 QuestionID,UID,Question,Category,Ranking,Deleted
 3,4,What is the hardest to answer "Would You Rather" that you have heard?,Random,1,0
 5,4,What’s the worst thing someone tried to correct you about something you’re specialized at?,Serious,0,0
-7,4,How was the database final?,Funny,0,0
 4,4,What felt like a useless piece of advice until you actually tried it?,Funny,-1,0
+7,4,How was the database final?,Funny,-1,0

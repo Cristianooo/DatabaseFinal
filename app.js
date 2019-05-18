@@ -9,9 +9,9 @@ const userDB = require("./models");
 
 const app = express();
 
-const {getLoginPage, login, getSignUpPage} = require('./routes/index');    
+const {getLoginPage, login, getSignUpPage, signUp} = require('./routes/index');    
 const {questionsPage, upvoteQues, downvoteQues, ranking, addQuestionPage, addQuestion, deleteQuestion, editQuestion, editQuestionPage, addResponsePage, addResponse} = require('./routes/question');
-const {profilePage, myQuestionsPage,editQuesPage,editQues, deleteQues, upVotedQuestionsPage, myResponsePage} = require('./routes/profile');
+const {profilePage, myQuestionsPage, editQuesPage, editQues, deleteQues, upVotedQuestionsPage, downVotedQuestionsPage, myResponsePage} = require('./routes/profile');
 const port = 5000;
 
 const {APIlogin, signup, logout, getUserData} = require("./routes/api-routes.js"); 
@@ -22,7 +22,7 @@ const {APIlogin, signup, logout, getUserData} = require("./routes/api-routes.js"
 const db = mysql.createConnection ({
     host: 'localhost',
     user: 'root',
-    password: '4a4ZDLy{3p',
+    password: '',
     database: 'JustAsk'
 });
 
@@ -70,7 +70,7 @@ app.post('/', login);
 
 
 app.post('/APIlogin', passport.authenticate("local"), APIlogin);
-app.post('/signup', signup);
+app.post('/signup', signUp);
 app.get('/logout', logout);
 app.get('/UserData', getUserData);
 
@@ -80,6 +80,7 @@ app.get('/editQues/:id', editQuesPage);
 app.post('/editQues/:id', editQues);
 app.get('/deleteQues/:id', deleteQues);
 app.get('/myUpvotes', upVotedQuestionsPage);
+app.get('/myDownvotes', downVotedQuestionsPage);
 app.get('/myResponses', myResponsePage)
 
 

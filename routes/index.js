@@ -21,9 +21,14 @@ module.exports =  {
         let username = req.body.username;
         let password = req.body.password;
 
-        let userQuery = "SELECT * FROM `Users` WHERE Username = '" + username + "' AND Password = '" + password+ "'" ;
+        let userQuery = "SELECT * FROM `Users` WHERE Username = ? AND Password = ?" ;
 
-        db.query(userQuery, (err, result) => {
+        db.query(userQuery,
+            [
+                username,
+                password
+            ],
+             (err, result) => {
             if (err) {
                 return res.status(500).send(err);
             }
@@ -43,5 +48,35 @@ module.exports =  {
         res.render('signUp.ejs', {
             title: "Sign Up!",
         })
+    },
+    signUp: (req, res)=> {
+        let message = '';
+        let firstname = req.body.firstName;
+        let lastname = req.body.lastName;
+        let email = req.body.email;
+        let username = req.body.username;
+        let password = req.body.password;
+
+        let signupQuery = "INSERT INTO USERS(FirstName, LastName, Username, Email, Password, createdAt, updatedAt) VALUES(?,?,?,?,?,NOW(),NOW());";
+
+        db.query(signupQuery,
+            [
+                firstname,
+                lastname,
+                email,
+                username,
+                password
+
+            ],
+            
+            (err, result) => {
+            if (err) {
+                return res.status(500).send('User already found. Please login');
+            }
+            res.redirect('/questions');
+
+            
+        });
     }
+    
 };

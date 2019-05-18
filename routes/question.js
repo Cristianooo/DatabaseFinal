@@ -2,28 +2,28 @@ const fs = require('fs');
 
 module.exports = {
     questionsPage:(req, res) =>{
-        let query = "SELECT * FROM `Questions` WHERE Deleted = 0 ORDER BY Ranking DESC"; 
+        let questionsQuery = "SELECT * FROM `Questions` WHERE Deleted = 0 ORDER BY Ranking DESC"; 
 
-        db.query(query, (err, result, fields) => {
+        db.query(questionsQuery, (err, result, fields) => {
             if (err) {
                 console.log('Query error');
                 res.redirect('/');
             }
-            var reportFile = Date.now();
-                fs.closeSync(fs.openSync(__dirname + '/../reports/' + reportFile + '.csv', 'w'));
+            var reportFile = "Questions";
+                fs.closeSync(fs.openSync(__dirname + '/../public/reports/' + reportFile + '.csv', 'w'));
                 var attributes = [];
                 var row = [];
                 for(var x = 0; x<fields.length; x++) attributes.push(fields[x].name);
-                fs.appendFile(__dirname + '/../reports/' + reportFile + '.csv', attributes.join(','), function (err) {
+                fs.appendFile(__dirname + '/../public/reports/' + reportFile + '.csv', attributes.join(','), function (err) {
                     if(err) console.log('Error appending fields', err);
-                    fs.appendFileSync(__dirname + '/../reports/' + reportFile + '.csv', '\n');
+                    fs.appendFileSync(__dirname + '/../public/reports/' + reportFile + '.csv', '\n');
                     for(var x = 0; x<result.length; x++) {
                         row = [];
                         for(var y = 0; y<attributes.length; y++){
                             row.push(result[x][attributes[y]]);
                         }
-                        fs.appendFileSync(__dirname + '/../reports/' + reportFile + '.csv', row.join(','));
-                        fs.appendFileSync(__dirname + '/../reports/' + reportFile + '.csv', '\n');
+                        fs.appendFileSync(__dirname + '/../public/reports/' + reportFile + '.csv', row.join(','));
+                        fs.appendFileSync(__dirname + '/../public/reports/' + reportFile + '.csv', '\n');
                     }
                     
                 });
@@ -37,17 +37,17 @@ module.exports = {
         var docID = parseInt(req.body.id);
         let upvoteQuery = "UPDATE `Questions` SET Ranking = Ranking+1 WHERE QuestionID = '"+ docID+ "'";
         let downvoteQuery = "UPDATE `Questions` SET Ranking = Ranking-1 WHERE QuestionID = '"+ docID+ "'";
-        let checkUpvoteQuery = "SELECT * FROM `LikedQuestions` WHERE UID = '"+ 4+ "' AND QuestionID = '"+ docID+ "'";
+        let checkUpvoteQuery = "SELECT * FROM `LikedQuestions` WHERE UID = '"+ 1+ "' AND QuestionID = '"+ docID+ "'";
 
         let addUpvoteQuery = "INSERT INTO `LikedQuestions`(UID, QuestionID) VALUES('" +
-        4 + "', '" + docID + "')";
-        let deleteUpvoteQuery = "DELETE FROM `LikedQuestions` WHERE UID = '"+ 4+ "' AND QuestionID = '"+ docID+ "'";
+        1 + "', '" + docID + "')";
+        let deleteUpvoteQuery = "DELETE FROM `LikedQuestions` WHERE UID = '"+ 1+ "' AND QuestionID = '"+ docID+ "'";
 
         db.beginTransaction(function(err){              //Transaction with rollback in the case of errors with multiple queries
             if (err) { throw err; }
             db.query(checkUpvoteQuery, (err, result) => {           //First check if user has upvoted question
                 if(err){
-                    connection.rollback(function() {
+                    db.rollback(function() {
                         throw err;
                       });
                     console.log('Query error');
@@ -56,7 +56,7 @@ module.exports = {
                 else if(result.length > 0){                             //If they have upvoted already, downvote the question
                     db.query(downvoteQuery, (err, result)=>{
                         if(err){
-                            connection.rollback(function() {
+                            db.rollback(function() {
                                 throw err;
                               });
                             console.log('Query error');
@@ -65,7 +65,7 @@ module.exports = {
                     })
                     db.query(deleteUpvoteQuery, (err, result)=>{        //Delete the question from the 'LikedQuestions' table for this user
                         if(err){
-                            connection.rollback(function() {
+                            db.rollback(function() {
                                 throw err;
                               });
                             console.log('Query error');
@@ -76,7 +76,7 @@ module.exports = {
                 else if(result.length ==0){                             //If they have not upvoted it already, upvote it
                     db.query(upvoteQuery, (err, result)=>{
                         if(err){
-                            connection.rollback(function() {
+                            db.rollback(function() {
                                 throw err;
                               });
                             console.log('Query error');
@@ -85,7 +85,7 @@ module.exports = {
                     })
                     db.query(addUpvoteQuery, (err, result)=>{           //Then add it to the 'LikedQuestions' table for this user
                         if(err){
-                            connection.rollback(function() {
+                            db.rollback(function() {
                                 throw err;
                               });
                             console.log('Query error');
@@ -109,11 +109,11 @@ module.exports = {
 
         let downvoteQuery = "UPDATE `Questions` SET Ranking = Ranking-1 WHERE QuestionID = '"+ docID+ "'";
         let upvoteQuery = "UPDATE `Questions` SET Ranking = Ranking+1 WHERE QuestionID = '"+ docID+ "'";
-        let checkDownvoteQuery = "SELECT * FROM `DislikedQuestions` WHERE UID = '"+ 4+ "' AND QuestionID = '"+ docID+ "'";
+        let checkDownvoteQuery = "SELECT * FROM `DislikedQuestions` WHERE UID = '"+ 1+ "' AND QuestionID = '"+ docID+ "'";
 
         let addDownvoteQuery = "INSERT INTO `DislikedQuestions`(UID, QuestionID) VALUES('" +
-        4 + "', '" + docID + "')";
-        let deleteDownvoteQuery = "DELETE FROM `DislikedQuestions` WHERE UID = '"+ 4+ "' AND QuestionID = '"+ docID+ "'";
+        1 + "', '" + docID + "')";
+        let deleteDownvoteQuery = "DELETE FROM `DislikedQuestions` WHERE UID = '"+ 1+ "' AND QuestionID = '"+ docID+ "'";
 
         db.beginTransaction(function(err){              //Transaction with rollback in the case of errors with multiple queries
             if (err) { throw err; }
@@ -204,7 +204,7 @@ module.exports = {
         let query = "INSERT INTO `Questions` (UID, Question, Category, Ranking, Deleted) VALUES (?,?,?,?,?)";
         db.query(query,
             [
-                4,
+                1,
                 question,
                 category,
                 0,
@@ -305,7 +305,7 @@ module.exports = {
                 db.query(ResponseKeyQuery,          //Updates foreign key table if the previous response query succeeds. If not it rolls back
                     [
                         questionID,
-                        4,
+                        1,
                         result.insertId
                     ],
                     (err, result) => {
@@ -334,7 +334,7 @@ module.exports = {
                         db.query(ResponseKeyQuery, 
                             [
                                 questionID,
-                                4,
+                                1,
                                 secondResult.insertId
                             ],
                             (err, result) => {
@@ -362,7 +362,7 @@ module.exports = {
                                 db.query(ResponseKeyQuery, 
                                 [
                                     questionID,
-                                    4,
+                                    1,
                                     thirdResult.insertId
                                 ],
                                 (err, result) => {
