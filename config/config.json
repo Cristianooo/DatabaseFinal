@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "4a4ZDLy{3p",
+    "password": "",
     "database": "JustAsk",
     "host": "localhost",
     "dialect": "mysql"
